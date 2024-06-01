@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     collection do
       get 'category/:category', to: 'venues#category', as: :category
     end
-    resources :bookings, except: [:show]
+    resources :bookings, except: [:show,]
     resources :reviews, only: %i[new create]
   end
 
