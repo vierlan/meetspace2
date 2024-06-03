@@ -6,7 +6,20 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
-    authorize @events
+    policy_scope @events
+
+     @events.map do |event|
+      venues = []
+      venues << event.booking.venue
+       @markers = venues.map do |venue|
+        {
+          lat: venue.latitude,
+          lng: venue.longitude,
+          info_window_html: render_to_string(partial: "info_window", locals: {venue: venue}),
+          marker_html: render_to_string(partial: "marker", locals: {venue: venue})
+        }
+      end
+    end
   end
 
   def show
