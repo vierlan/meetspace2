@@ -63,14 +63,9 @@
             <p><strong>Location:</strong> <%= @venue.address %></p>
             <p><strong>Description:</strong> <%= @venue.description %></p>
             <%= link_to "Leave a Review", new_venue_review_path(@venue), class: "btn btn-secondary" %>
-            <% if current_user.favorites.exists?(venue: @venue) %>
-  <% if user_signed_in? %>
-  <%= debug(current_user.favorites) %>
-  <%= debug(@venue) %>
 
+ <% if user_signed_in? %>
   <% if current_user.favorites.exists?(venue: @venue) %>
-   <%= debug(current_user.favorites) %>
-  <%= debug(@venue) %>
     <%= button_to 'Remove from Favorites', venue_favorite_path(@venue, current_user.favorites.find_by(venue: @venue)), method: :delete %>
   <% else %>
     <%= button_to 'Add to Favorites', venue_favorites_path(@venue), method: :post %>
@@ -78,6 +73,7 @@
 <% else %>
   <%= link_to 'Sign in to add to favorites', new_user_session_path %>
 <% end %>
+
 
 
           </div>
